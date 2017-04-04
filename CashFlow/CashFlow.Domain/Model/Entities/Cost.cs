@@ -10,5 +10,6 @@ namespace CashFlow.Domain.Model.Entities
     {
         public int Id { get; set; }
         public CostType Type { get; set; }
+        public int CompanyId { get; set; }
     }
 }
