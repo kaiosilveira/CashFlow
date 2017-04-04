@@ -40,6 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Entities\Company.cs" />
+    <Compile Include="Model\Entities\Cost.cs" />
+    <Compile Include="Model\Entities\CostType.cs" />
+    <Compile Include="Model\Entities\Income.cs" />
+    <Compile Include="Model\Entities\IncomeType.cs" />
+    <Compile Include="Model\Entities\Transaction.cs" />
+    <Compile Include="Model\Enumerators\ConnectionStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
