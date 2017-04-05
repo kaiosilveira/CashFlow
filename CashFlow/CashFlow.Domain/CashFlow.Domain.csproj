@@ -45,6 +45,8 @@
     <Compile Include="Model\Entities\CostType.cs" />
     <Compile Include="Model\Entities\Income.cs" />
     <Compile Include="Model\Entities\IncomeType.cs" />
+    <Compile Include="Model\Entities\Project.cs" />
+    <Compile Include="Model\Entities\ProjectStatus.cs" />
     <Compile Include="Model\Entities\Transaction.cs" />
     <Compile Include="Model\Enumerators\ConnectionStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
