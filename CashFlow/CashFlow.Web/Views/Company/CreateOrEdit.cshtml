@@ -1,0 +1,42 @@
+﻿@model CashFlow.Web.Models.CompanyCreateOrEditModel
+
+@{
+    ViewBag.Title = "CreateOrEdit";
+}
+
+<div class="container">
+
+    <header class="page-header text-center">
+        @if(Model.Id != 0)
+        {
+            <h1>Editar dados da empresa @Model.Name</h1>
+        }
+        else
+        {
+            <h1>Cadastro de empresa</h1>
+        }
+    </header>
+
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            @using(Html.BeginForm("CreateOrEdit", "Company", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name)
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Digite o nome da empresa" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Register)
+                    @Html.TextBoxFor(m => m.Register, new { @class = "form-control", @placeholder = "Digite o CNPJ da empresa"})
+                </div>
+                
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                        Salvar
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

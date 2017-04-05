@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\Interfaces\ICompanyRepository.cs" />
     <Compile Include="Model\Entities\Company.cs" />
     <Compile Include="Model\Entities\Cost.cs" />
     <Compile Include="Model\Entities\CostType.cs" />
