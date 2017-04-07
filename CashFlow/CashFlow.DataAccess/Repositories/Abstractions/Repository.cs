@@ -1,59 +1,62 @@
 ﻿using CashFlow.DataAccess.Factories;
 using CashFlow.Domain.Model.Enumerators;
 using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace CashFlow.DataAccess.Repositories.Abstractions
 {
     public abstract class Repository
     {
-        protected T QuerySingle<T>(string sql, object parameters)
+        private TReturn Disptach<TReturn>(Func<IDbConnection, TReturn> query)
         {
             using (var con = new ConnectionFactory().GetConnection(ConnectionStrings.CashFlow))
             {
-                return con.QuerySingle<T>(sql, parameters);
+                return query(con);
             }
         }
 
-        protected async Task<T> QuerySingleAsync<T>(string sql, object parameters)
+        private async Task<TReturn> Disptach<TReturn>(Func<IDbConnection, Task<TReturn>> query)
         {
             using (var con = new ConnectionFactory().GetConnection(ConnectionStrings.CashFlow))
             {
-                return await con.QuerySingleAsync<T>(sql, parameters);
+                return await query(con);
             }
         }
 
-        protected IEnumerable<T> Query<T>(string sql, object parameters)
+        protected IEnumerable<T> Perform<T>(string query, object parameters)
         {
-            using (var con = new ConnectionFactory().GetConnection(ConnectionStrings.CashFlow))
+            return this.Disptach<IEnumerable<T>>((con) =>
             {
-                return con.Query<T>(sql, parameters);
-            }
+                return con.Query<T>(query, parameters);
+            });
         }
 
-        protected async Task<IEnumerable<T>> QueryAsync<T>(string sql, object parameters)
+        protected Task<IEnumerable<T>> PerformAsync<T>(string query, object parameters)
         {
-            using (var con = new ConnectionFactory().GetConnection(ConnectionStrings.CashFlow))
+            return this.Disptach<IEnumerable<T>>(async (con) =>
             {
-                return await con.QueryAsync<T>(sql, parameters);
-            }
+                return await con.QueryAsync<T>(query, parameters);
+            });
         }
 
-        protected void Execute(string sql, object parameters)
+        protected T PerformSingle<T>(string query, object parameters)
         {
-            using (var con = new ConnectionFactory().GetConnection(ConnectionStrings.CashFlow))
+            return this.Disptach<T>((con) =>
             {
-                con.Execute(sql, parameters);
-            }
+                return con.QuerySingle<T>(query, parameters);
+            });
         }
 
-        protected async Task ExecuteAsync(string sql, object parameters)
+        protected Task<T> PerformSingleAsync<T>(string query, object parameters)
         {
-            using (var con = new ConnectionFactory().GetConnection(ConnectionStrings.CashFlow))
+            return this.Disptach<T>(async (con) =>
             {
-                await con.ExecuteAsync(sql, parameters);
-            }
+                return await con.QuerySingleAsync<T>(query, parameters);
+            });
         }
     }
 }

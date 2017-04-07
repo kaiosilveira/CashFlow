@@ -10,9 +10,9 @@ namespace CashFlow.DataAccess.Repositories
     {
         public int Create(Company company)
         {
-            string sql = @"insert into company(name, register) values (@name, @register) select @@ROWCOUNT";
+            string query = @"insert into company(name, register) values (@name, @register) select @@ROWCOUNT";
             var parameters = new { @name = company.Name, @register = company.Register };
-            return base.QuerySingle<int>(sql, parameters);
+            return base.PerformSingle<int>(query, parameters);
         }
 
         public int Delete(int id)
@@ -22,18 +22,18 @@ namespace CashFlow.DataAccess.Repositories
 
         public Company Get(int id)
         {
-            var sql = @"select c.id, c.name, c.fantasy_name, c.register from company as c where c.id = @id";
-            return base.QuerySingle<Company>(sql, new { @id = id });
+            var query = @"select c.id, c.name, c.fantasy_name, c.register from company as c where c.id = @id";
+            return base.PerformSingle<Company>(query, new { @id = id });
         }
 
         public IEnumerable<Company> List()
         {
-            return base.Query<Company>("select id, name, register from company", null);
+            return base.Perform<Company>("select id, name, register from company", null);
         }
 
         public int Update(Company company)
         {
-            string sql = @"update company(Name, Register)
+            string query = @"update company(Name, Register)
                             set name = @name,
                             register = @register
                             where id = @id  
@@ -41,7 +41,7 @@ namespace CashFlow.DataAccess.Repositories
                             select @@ROWCOUNT";
 
             var parameters = new { @id = company.Id, @name = company.Name, @register = company.Register };
-            return base.QuerySingle<int>(sql, parameters);
+            return base.PerformSingle<int>(query, parameters);
         }
     }
 }
