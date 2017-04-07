@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string FantasyName { get; set; }
         public string Register { get; set; }
     }
 }

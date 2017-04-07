@@ -19,18 +19,22 @@
 
     <div class="row">
         <div class="col-md-offset-4 col-md-4">
-            @using(Html.BeginForm("CreateOrEdit", "Company", FormMethod.Post))
+            @using(Html.BeginForm("CreateOrEdit", "Company", FormMethod.Post, new { @class = "form-group" }))
             {
                 <div class="form-group">
                     @Html.LabelFor(m => m.Name)
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Digite o nome da empresa" })
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Digite a razão social da empresa" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FantasyName)
+                    @Html.TextBoxFor(m => m.FantasyName, new { @class = "form-control", @placeholder = "Digite o nome fantasia da empresa" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Register)
                     @Html.TextBoxFor(m => m.Register, new { @class = "form-control", @placeholder = "Digite o CNPJ da empresa"})
                 </div>
                 
-                <div class="btn-group">
+                <div class="btn-group pull-right">
                     <button type="submit" class="btn btn-primary">
                         <span class="glyphicon glyphicon-floppy-disk"></span>
                         Salvar

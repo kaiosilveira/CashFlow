@@ -49,7 +49,13 @@ namespace CashFlow.Web.Controllers
         {
             if(ModelState.IsValid)
             {
-                var company = new Company() { Id = model.Id, Name = model.Name, Register = model.Register };
+                var company = new Company()
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                   FantasyName = model.FantasyName,
+                    Register = model.Register
+                };
                 
                 if (model.Id != 0)
                     companyRepository.Update(company);
