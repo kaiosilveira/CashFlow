@@ -4,5 +4,26 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="container">
+    <h1>@Model.FantasyName</h1>
+    <p style="font-style: italic; font-size: 14px;">@Model.Name</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel panel-heading">
+                    <h3>Receitas</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <span>
+        <a class="btn btn-default"
+             href="@Url.Action("CreateOrEdit", "Company", new { @id = Model.Id })">
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+        </a>
+    </span>
+</div>
 

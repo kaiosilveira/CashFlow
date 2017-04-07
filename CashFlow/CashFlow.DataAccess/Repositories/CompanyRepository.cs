@@ -10,8 +10,17 @@ namespace CashFlow.DataAccess.Repositories
     {
         public int Create(Company company)
         {
-            string query = @"insert into company(name, register) values (@name, @register) select @@ROWCOUNT";
-            var parameters = new { @name = company.Name, @register = company.Register };
+            string query = @"insert into company(name, fantasy_name, register)
+                             values (@name, @fantasy_name, @register)
+                            
+                             select @@ROWCOUNT";
+            var parameters = new
+            {
+                @name = company.Name,
+                @fantasy_name = company.FantasyName,
+                @register = company.Register
+            };
+
             return base.PerformSingle<int>(query, parameters);
         }
 
@@ -22,25 +31,33 @@ namespace CashFlow.DataAccess.Repositories
 
         public Company Get(int id)
         {
-            var query = @"select c.id, c.name, c.fantasy_name, c.register from company as c where c.id = @id";
+            var query = @"select c.id, c.name, c.fantasy_name as FantasyName, c.register from company as c where c.id = @id";
             return base.PerformSingle<Company>(query, new { @id = id });
         }
 
         public IEnumerable<Company> List()
         {
-            return base.Perform<Company>("select id, name, register from company", null);
+            return base.Perform<Company>("select id, name, fantasy_name as FantasyName, register from company", null);
         }
 
         public int Update(Company company)
         {
-            string query = @"update company(Name, Register)
+            string query = @"update company
                             set name = @name,
+                            fantasy_name = @fantasy_name,
                             register = @register
-                            where id = @id  
+                            where id = @id 
 
                             select @@ROWCOUNT";
 
-            var parameters = new { @id = company.Id, @name = company.Name, @register = company.Register };
+            var parameters = new
+            {
+                @id = company.Id,
+                @name = company.Name,
+                @fantasy_name = company.FantasyName,
+                @register = company.Register
+            };
+
             return base.PerformSingle<int>(query, parameters);
         }
     }
