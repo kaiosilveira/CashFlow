@@ -5,25 +5,150 @@
 }
 
 <div class="container">
-    <h1>@Model.FantasyName</h1>
-    <p style="font-style: italic; font-size: 14px;">@Model.Name</p>
-
     <div class="row">
+        <div class="col-lg-12">
+            <h1>
+                @Model.FantasyName
+                <span>
+                    <a class="btn btn-default"
+                       href="@Url.Action("CreateOrEdit", "Company", new { @id = Model.Id })">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                </span>
+            </h1>
+            <p style="font-style: italic; font-size: 14px;">@Model.Name</p>
+            
+        </div>
+    </div>
+    <div class="row">
+
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel panel-heading">
+                <div class="panel-heading text-center">
+                    <h3>Projetos</h3>
+                </div>
+                <div class="panel-body">
+                    @if (this.Model.Projects.Count() > 0)
+                    {
+                        <h4 class="text-center">Últimas projetos</h4>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Data</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var project in this.Model.Projects.OrderByDescending(p => p.DueDate).Take(5))
+                                {
+                                    <tr>
+                                        <td>@project.Description</td>
+                                        <td>@project.DueDate.ToShortDateString()</td>
+                                        <td>@project.Status.Name</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" style="font-weight:bold;">Total:</td>
+                                    <td>@this.Model.Incomes.Sum(i => i.Amount)</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    }
+                    else
+                    {
+                        <h4 class="text-center">Nenhum projeto cadastrado</h4>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
                     <h3>Receitas</h3>
+                </div>
+                <div class="panel-body">
+                    @if (this.Model.Incomes.Count() > 0)
+                    {
+                        <h4 class="text-center">Últimas entradas</h4>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Data</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var income in this.Model.Incomes.OrderByDescending(m => m.Date).Take(5))
+                                {
+                                    <tr>
+                                        <td>@income.Title</td>
+                                        <td>@income.Date.ToShortDateString()</td>
+                                        <td>@income.Amount</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" style="font-weight:bold;">Total:</td>
+                                    <td>@this.Model.Incomes.Sum(i => i.Amount)</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    }
+                    else
+                    {
+                        <h4>Nenhuma receita cadastrada</h4>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h3>Custos</h3>
+                </div>
+                <div class="panel-body">
+                    @if (this.Model.Costs.Count() > 0)
+                    {
+                        <h4 class="text-center">Últimos custos</h4>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Data</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cost in this.Model.Costs.OrderByDescending(m => m.Date).Take(5))
+                                {
+                                    <tr>
+                                        <td>@cost.Title</td>
+                                        <td>@cost.Date.ToShortDateString()</td>
+                                        <td>@cost.Amount</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" style="font-weight:bold;">Total:</td>
+                                    <td>@this.Model.Costs.Sum(i => i.Amount)</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    }
+                    else
+                    {
+                        <h4 class="text-center">Nenhum custo cadastrado</h4>
+                    }
                 </div>
             </div>
         </div>
     </div>
-
-    <span>
-        <a class="btn btn-default"
-             href="@Url.Action("CreateOrEdit", "Company", new { @id = Model.Id })">
-        <span class="glyphicon glyphicon-pencil"></span>
-        Editar
-        </a>
-    </span>
 </div>
 

@@ -38,6 +38,7 @@ namespace CashFlow.Web.Controllers
                 var company = companyRepository.Get(id.Value);
                 model.Id = id.Value;
                 model.Name = company.Name;
+                model.FantasyName = company.FantasyName;
                 model.Register = company.Register;
             }
 
@@ -53,7 +54,7 @@ namespace CashFlow.Web.Controllers
                 {
                     Id = model.Id,
                     Name = model.Name,
-                   FantasyName = model.FantasyName,
+                    FantasyName = model.FantasyName,
                     Register = model.Register
                 };
                 
@@ -78,7 +79,15 @@ namespace CashFlow.Web.Controllers
                 Id = company.Id,
                 Name = company.Name,
                 FantasyName = company.FantasyName,
-                Register = company.Register
+                Register = company.Register,
+                Incomes = new List<Income>()
+                {
+                    new Income() { Title = "Projeto xpto", Amount = 400m, Date = new DateTime(2015, 03, 27) },
+                    new Income() { Title = "Projeto z", Amount = 600m, Date = new DateTime(2016, 03, 27) },
+                    new Income() { Title = "Investimento", Amount = 1000m, Date = new DateTime(2017, 03, 27) }
+                },
+                Projects = new List<Project>(),
+                Costs = new List<Cost>()
             };
 
             return View(model);

@@ -35,6 +35,20 @@
                 </div>
                 
                 <div class="btn-group pull-right">
+                    @if (Model.Id != 0)
+                    {
+                        <a href="@Url.Action("Details", "Company", new { @id = Model.Id })" class="btn btn-default">
+                            <span class="glyphicon glyphicon-ban-circle"></span>
+                            Cancelar
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Index", "Company")" class="btn btn-default">
+                            <span class="glyphicon glyphicon-ban-circle"></span>
+                            Cancelar
+                        </a>
+                    }
                     <button type="submit" class="btn btn-primary">
                         <span class="glyphicon glyphicon-floppy-disk"></span>
                         Salvar
