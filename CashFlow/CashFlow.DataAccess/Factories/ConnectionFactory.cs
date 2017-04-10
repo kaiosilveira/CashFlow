@@ -10,7 +10,7 @@ namespace CashFlow.DataAccess.Factories
         public IDbConnection GetConnection(ConnectionStrings connectionString)
         {
             var con = new SqlConnection(ConfigurationProvider.GetConnectionString(connectionString));
-            con.Open();
+                 con.Open();
             return con;
         }
     }
